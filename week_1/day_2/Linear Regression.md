@@ -3,8 +3,6 @@ tags:
   - lecture
   - notes
 ---
-
-
 ## Lecture Notes on Linear Regression for Prediction
 
 ### Key Concepts
