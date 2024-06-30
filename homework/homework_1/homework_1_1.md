@@ -62,7 +62,7 @@ z_values = subtract(areas, mean)/std_dev
 | 15            | -1.015           |
 | 20            | 1.24             |
 | 18            | 0.338            |
-| 16            | -.0164           |
+| 16            | -.564            |
 
 ## 1.4 One-hot encoding
 
