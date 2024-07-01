@@ -12,7 +12,6 @@ tags:
 | 18               | 3       | 11111   | 6                 |
 | 16               | 3       | 33333   | 5.5               |
 
-
 # Linear regression (45pt)
 
 ## Simple linear Regression (40pt)
@@ -197,24 +196,151 @@ P1(amount) = 1/(1+e^-(beta_0 + beta_1 * amount))
 # Probability Calculation
 probs = map(amounts, P1(amount))
 
-P1(10)
+anti_prob = subtract(1, probs)
 ```
 
-| amount ($100) | fraud?  | p_i = P(Fraud = 1) | The probability L_i |
-| ------------- | ------- | ------------------ | ------------------- |
-| 0.1           | 0 (No)  | 0.13               | 0.870               |
-| 1             | 0 (No)  | 0.269              | 0.731               |
-| 10            | 1 (Yes) | 0                  | 0                   |
-| 5             | 1 (Yes) | 0.048              | 0.048               |
+| amount ($100) | fraud?  | p_i = P(Fraud = 1)                 | The probability L_i                |
+| ------------- | ------- | ---------------------------------- | ---------------------------------- |
+| 0.1           | 0 (No)  | 0.13                               | 0.870                              |
+| 1             | 0 (No)  | 0.269                              | 0.731                              |
+| 10            | 1 (Yes) | 0.000335 (probably rounding error) | 0.000335 (probably rounding error) |
+| 5             | 1 (Yes) | 0.048                              | 0.048                              |
 
+$L \approx 0.870 \times 0.731 \times 0.000335 \times 0.0474$
+$L \approx 0.000010125$
+$L \approx 1.0125 \times 10^{-5}$
 
-L = 0
-
-the likelyhood of observing the dataset given beta_0 = -2 and beta_1 = 1 is basically zero. I think i had a couple rounding errors somewhere. Ill clean that up later. I know that its a really small number and thats not good.
+The likelyhood of observing the dataset given $\beta_0 = -2$ and $\beta_1 = 1$ is very close to zero. I think i had a couple rounding errors somewhere. Ill clean that up later. I know that its a really small number and thats not good.
 ### Decision Boundary (10pt)
 
 **(10pt) Exercise:** If the learned logistic model has β0 = −2 and β1 = 1, what is the decision boundary? Can you describe the meaning of this boundary in the transaction classification example?
 
+if function is $\beta_{0}+ \beta_{1} \times X$ then we can solve for $X$ after setting the input to 0:
+
+$-2 + 1 \times X = 0$
+
+so
+
+$X = 2$
+
+This means that the decision boundary is at $200 since $X = 2$ corresponds to $200. Transactions with an amount above $200 are predicted as fraudulent with a probability over 50%. Transactions with an amount below $200 are predicted as fraudulent with a probability under 50%
+
 ### Regularization for logistic regression (10pt)
 
+**(10pt) Bonus Exercise:**
+1. Consider another set of coefficients, β0 = −4 and β1 = 2. Does this change the decision boundary? Does it change the likelihood? Compared to our old β coefficients, which one do you want to choose?
+
+Lets work it out!
+$\beta_{0}+ \beta_{1} \times X = 0$
+$-4 + 2 \times X = 0$
+$2 \times X = 4$
+$X = 2$
+
+This does not change the decision boundary
+
+For like likelyhood calculation, we can do a little more math
+
+```math
+beta_0 = -4
+beta_1 = 2
+amounts = [0.1, 1, 10, 5]
+fraud   = [0,   0,  1, 1]
+
+P1(amount) = 1/(1+e^-(beta_0 + beta_1 * amount))
+
+probs = map(amounts, P1(amount))
+subtract(1, probs)
+
+
+@[likelyhood::0.0000000000007257810388412397] = multiply(0.02188127093613048, 0.11920292202211757, 0.00000011253516207787584, 0.002472623156634657)
+
+```
+
+For some reason, due to a rounding error, it shows zero, but the actual value is closer to $7.2578 × 10^{-13}$
+
+Increasing the beta values actually made the likelyhood lower. I would prefer $\beta_0 = -2$ and $\beta_1 = 1$ over this.
+
+2. We can see that by increasing β0 and β1 proportionally (you can try another set of coefficients, e.g., β0 = −6 and β1 = 3), the decision boundary will not change, but the likelihood is keep increasing. Which β0 and β1 should we use then? Is that acceptable? How regularization can be used to handle this issue?
+
+You've raised a very important point about the decision boundary remaining unchanged when \(\beta_0\) and \(\beta_1\) are increased proportionally, but the likelihood changes. This phenomenon is related to the scale of the coefficients and the potential for overfitting. Let's explore this further and how regularization can help.
+
+### The Effect of Increasing \(\beta_0\) and \(\beta_1\) Proportionally
+
+When we increase \(\beta_0\) and \(\beta_1\) proportionally, the decision boundary does not change. For instance:
+
+- With \(\beta_0 = -6\) and \(\beta_1 = 3\), the decision boundary is still at:
+  $-6 + 3X = 0$
+  $X = 2$
+
+However, the likelihood of the observed data changes because the probabilities become more extreme. As \(\beta_0\) and \(\beta_1\) increase, the model becomes more confident in its predictions, leading to probabilities that are closer to 0 or 1. This can artificially inflate the likelihood on the training data, but it often results in overfitting, where the model does not generalize well to new data.
+
+### Example with \(\beta_0 = -6\) and \(\beta_1 = 3\)
+
+Let's compute the probabilities and likelihood with these new coefficients:
+
+1. **For amount = 0.1 ($10)**:
+$p_1 = \frac{1}{1 + e^{-(-6 + 3 \times 0.1)}}$
+$p_1 = \frac{1}{1 + e^{-(-6 + 0.3)}}$
+$p_1 = \frac{1}{1 + e^{-(-5.7)}}$
+$p_1 = \frac{1}{1 + e^{5.7}}$
+$p_1 \approx \frac{1}{1 + 299.2}$
+$p_1 \approx 0.0033$
+
+2. **For amount = 1 ($100)**:
+$p_2 = \frac{1}{1 + e^{-(-6 + 3 \times 1)}}$
+$p_2 = \frac{1}{1 + e^{-(-6 + 3)}}$
+$p_2 = \frac{1}{1 + e^{-(-3)}}$
+$p_2 = \frac{1}{1 + e^3}$
+$p_2 \approx \frac{1}{1 + 20.0855}$
+$p_2 \approx 0.0474$
+
+3. **For amount = 10 ($1000)**:
+$p_3 = \frac{1}{1 + e^{-(-6 + 3 \times 10)}}$
+$p_3 = \frac{1}{1 + e^{-(-6 + 30)}}$
+$p_3 = \frac{1}{1 + e^{24}}$
+$p_3 \approx \frac{1}{1 + 2.6881 \times 10^{10}}$
+$p_3 \approx 3.7 \times 10^{-11}$
+
+4. **For amount = 5 ($500)**:
+$p_4 = \frac{1}{1 + e^{-(-6 + 3 \times 5)}}$
+$p_4 = \frac{1}{1 + e^{-(-6 + 15)}}$
+$p_4 = \frac{1}{1 + e^{9}}$
+$p_4 \approx \frac{1}{1 + 8103.1}$
+$p_4 \approx 1.23 \times 10^{-4}$
+
+### Updated Table with New Probabilities
+
+| amount ($100) | fraud? | \(p_i = P(\text{Fraud} = 1)\) | The probability \(L_i\) |
+| ------------- | ------ | ----------------------------- | ----------------------- |
+| 0.1           | 0      | 0.0033                        | $1 - 0.0033 = 0.9967$   |
+| 1             | 0      | 0.0474                        | $1 - 0.0474 = 0.9526$   |
+| 10            | 1      | $3.7 \times 10^{-11}$         | $3.7 \times 10^{-11}$   |
+| 5             | 1      | $1.23 \times 10^{-4}$         | $1.23 \times 10^{-4}$   |
+
+$L = 0.9967 \times 0.9526 \times 3.7 \times 10^{-11} \times 1.23 \times 10^{-4}$
+
+$L \approx 0.949 \times 4.551 \times 10^{-15}$
+
+$L \approx 4.321 \times 10^{-15}$
+
+The likelihood with the new coefficients \(\beta_0 = -6\) and \(\beta_1 = 3\) is significantly lower than with \(\beta_0 = -2\) and \(\beta_1 = 1\), indicating that the model may be overfitting to the training data.
+
+To address this issue, we can use regularization techniques like L1 (Lasso) or L2 (Ridge) regularization, which add a penalty term to the loss function to discourage large coefficients:
+
+- Lasso: Adds the absolute values of the coefficients to the loss function.
+  $\text{Loss} = -\sum \log L_i + \lambda \sum |\beta_j|$
+
+- Ridge: Adds the squared values of the coefficients to the loss function.
+  $\text{Loss} = -\sum \log L_i + \lambda \sum \beta_j^2$
+
 ## Multiple responses (10pt)
+
+**(5pt) Exercise:** Consider a credit card transaction risk classification task, which has three levels: {no-risk, medium-risk, high-risk}. If the prediction probability of a transaction for each class is 0.6, 0.3, 0.1, respectively, which risk level do you want to classify this transaction into?
+
+Given the prediction probabilites for a transaction:
+
+* No-risk = 0.6
+* Medium-risk = 0.3
+* High-risk = 0.1
+
+so we would classify the transaction as `no-risk` because its the highest probability.
