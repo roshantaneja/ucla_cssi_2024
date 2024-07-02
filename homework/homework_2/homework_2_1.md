@@ -1,6 +1,7 @@
 ---
 tags:
   - homework
+  - summer
 ---
 
 # Instruction and preparation

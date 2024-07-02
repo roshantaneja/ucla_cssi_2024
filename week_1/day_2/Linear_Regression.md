@@ -2,6 +2,7 @@
 tags:
   - lecture
   - notes
+  - summer
 ---
 ## Lecture Notes on Linear Regression for Prediction
 

@@ -2,6 +2,7 @@
 tags:
   - lecture
   - notes
+  - summer
 ---
 ## Lecture Notes on K-Nearest Neighbors (KNN)
 

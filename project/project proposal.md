@@ -2,6 +2,7 @@
 tags:
   - homework
   - project
+  - summer
 ---
 # CS97 Summer 2024 Project Proposal 
 ### Team Information

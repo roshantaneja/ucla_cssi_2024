@@ -2,6 +2,7 @@
 tags:
   - notes
   - lecture
+  - summer
 ---
 ## Lecture Notes on Support Vector Machines (SVM)
 
