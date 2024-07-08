@@ -2,6 +2,7 @@
 tags:
   - homework
   - summer
+  - CS
 ---
 `Homework Entirely Complete by Roshan Taneja`
 `Calculations Verified with Coco, Aditi`

@@ -2,6 +2,7 @@
 tags:
   - homework
   - summer
+  - CS
 ---
 
 # Instruction and preparation

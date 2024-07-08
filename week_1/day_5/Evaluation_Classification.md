@@ -3,6 +3,7 @@ tags:
   - lecture
   - notes
   - summer
+  - CS
 ---
 ## Lecture Notes on Classification Evaluation and Model Selection
 
