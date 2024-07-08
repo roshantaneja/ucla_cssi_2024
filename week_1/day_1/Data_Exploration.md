@@ -101,5 +101,5 @@ tags:
 - Get familiar with BruinLearn, Piazza, GradeScope
 - Review Python libraries for data science (Numpy, Pandas, Matplotlib)
 - Practice data exploration and preprocessing (e.g., `read_csv`, `drop`)
-- Help with  [Homework 0](homework/homework_0/homework_0.md)
+- Help with  [Homework 0](80_Learning_Education/82_Summer_Courses/82.30_ucla_cssi_2024/homework/homework_0/homework_0.md)
 - 

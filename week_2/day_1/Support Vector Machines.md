@@ -30,7 +30,7 @@ $$ D(x) = \frac{w^{T} x + b}{||w||}$$
 
 - $w$ is the weight vector (normal to the hyperplane) and$b$ is the bias term.
 
-![](dist_to_decision_bound.png)
+![](80_Learning_Education/82_Summer_Courses/82.30_ucla_cssi_2024/week_2/day_1/dist_to_decision_bound.png)
 
 - **Margin**:
   - The distance between the hyperplane and the nearest data points from each class.
