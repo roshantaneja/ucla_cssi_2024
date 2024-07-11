@@ -58,7 +58,6 @@ User_ID,Age,Gender,Platform,Daily_Usage_Time (minutes),Posts_Per_Day,Likes_Recei
 612,25.0,Female,Snapchat,110,5,35,21,34,Sadness
 185,29.0,Non-binary,Facebook,65,2,27,11,22,Anxiety
 537,33.0,Female,Snapchat,190,7,82,21,28,Happiness
-771,24.0,Female,Instagram,140,6,50,21,29,Agression
 683,34.0,Female,Instagram,105,7,42,16,31,Anger
 372,28.0,Male,Twitter,100,4,23,19,20,Neutral
 30,26.0,Non-binary,Snapchat,90,2,29,18,22,Sadness
