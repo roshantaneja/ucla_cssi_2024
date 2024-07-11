@@ -25,14 +25,14 @@ tags:
 
 ### Linear Regression Models
 1. **Simple Linear Regression**:
-   - Predicting a variable \( Y \) using another variable \( X \).
-   - Model: \( Y = \beta_0 + \beta_1X \)
+   - Predicting a variable $Y$ using another variable $X$ .
+   - Model: $Y = \beta_0 + \beta_1X =$
    - Goal: Minimize the Mean Squared Error (MSE).
      $$ \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 $$
 
 2. **Multi-variate Linear Regression**:
    - Predicting \( Y \) using multiple predictors.
-   - Model: \( Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p \)
+   - Model: $Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_pX_p$
    - MSE in vector notation:
      $$ \text{MSE} = \frac{1}{n} (Y - X\beta)^T(Y - X\beta) $$
    - Solution using vector calculus:
@@ -40,7 +40,7 @@ tags:
 
 3. **Polynomial Regression**:
    - Extending linear regression to capture non-linear relationships.
-   - Model: \( Y = \beta_0 + \beta_1X + \beta_2X^2 + \ldots + \beta_dX^d \)
+   - Model: $Y = \beta_0 + \beta_1X + \beta_2X^2 + \ldots + \beta_dX^d$
    - Minimize MSE similarly to linear regression.
 
 ### Model Estimation and Interpretation

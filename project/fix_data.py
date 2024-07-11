@@ -1,6 +1,9 @@
 import pandas as pd
 
-file_path = 'project/train.csv'
+#change these as needed
+file_path = 'project/val.csv'
+corrected_file_path = 'project/corrected_val.csv'
+
 data = pd.read_csv(file_path)
 
 def is_integer(value):
@@ -20,7 +23,6 @@ for index, row in data.iterrows():
 
 data['Age'] = pd.to_numeric(data['Age'], errors='coerce')
 
-corrected_file_path = 'project/corrected_train.csv'
 data.to_csv(corrected_file_path, index=False)
 
 corrected_file_path

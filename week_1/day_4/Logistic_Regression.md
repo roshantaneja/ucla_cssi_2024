@@ -34,7 +34,7 @@ tags:
 * Probability of $Y = 1: p$
 * probability of $Y = 0: 1-p$
 * The likelihood of a single observation for $p$ given $x$ and $y$ is:
-	* $$P(Y=y) = p^y(1-p)^{(1-p)}$$
+	* $$P(Y=y) = p^y(1-p)^{(1-y)}$$
 * If we do this for all the points in the function we can calculate likelyhood across all points
 
 ### Estimation and Interpretation
